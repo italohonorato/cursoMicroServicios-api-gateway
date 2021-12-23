@@ -1,0 +1,41 @@
+#application settings
+spring:
+  application:
+    name: api-gateway-service
+#routes settings
+  cloud:
+    gateway:
+      routes:
+      - id: degrees-service
+        uri: lb://degrees-service
+        predicates:
+        - Path=/degrees/**
+        filters:
+        - StripPrefix=0
+      - id: measures-service
+        uri: lb://measures-service
+        predicates:
+        - Path=/measures/**
+        filters:
+        - StripPrefix=0
+        - name: Api
+      - id: member-measures-service
+        uri: lb://member-measures-service
+        predicates:
+        - Path=/memberMeasures/**
+        filters:
+        - StripPrefix=0
+      - id: members-service
+        uri: lb://members-service
+        predicates:
+        - Path=/members/**
+        filters:
+        - StripPrefix=0
+#eureka settings
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+#port settings
+server:
+  port: 8090
