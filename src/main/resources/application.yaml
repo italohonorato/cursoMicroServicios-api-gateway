@@ -31,6 +31,18 @@ spring:
         - Path=/members/**
         filters:
         - StripPrefix=0
+      - id: class-service
+        uri: lb://class-service
+        predicates:
+        - Path=/class/**
+        filters:
+        - StripPrefix=0
+      - id: api-facade
+        uri: lb://api-facade
+        predicates:
+          - Path=/api/**
+        filters:
+          - StripPrefix=0
 #eureka settings
 eureka:
   client:
